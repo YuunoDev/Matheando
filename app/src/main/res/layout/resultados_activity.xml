@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@drawable/fondo2">
+
+    <TextView
+        android:id="@+id/textTituloRes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultados de Actividad:"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="20dp"/>
+
+    <ProgressBar
+        android:id="@+id/barraProgreso"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:max="10"
+        android:progress="10" />
+
+    <TextView
+        android:id="@+id/textCorrectas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Respuestas Correctas: -/10"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/textRetMensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mensaje de animo"
+        android:textSize="18sp"
+        android:textColor="#787878"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <ImageView
+        android:id="@+id/imgCorrectas"
+        android:layout_width="151dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/btnRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reiniciar Actividad"
+        android:backgroundTint="@color/greenlime"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/btnBackToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver al Inicio"
+        android:backgroundTint="@color/greenlime"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
