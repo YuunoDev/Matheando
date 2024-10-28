@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Matheando"
         tools:targetApi="31">
         <activity
+            android:name=".ActDFA"
+            android:exported="false" />
+        <activity
+            android:name=".Maynum"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
