@@ -1,7 +1,6 @@
 package com.aaa.matheando;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -14,10 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class AventurasSumres extends AppCompatActivity {
-    private ProgressBar progressBar;
-    private TextView txtProgreso, txtPregunta;
-    private RadioGroup rgRespuestas;
+
+    private TextView txtSumasRestasPregunta;
+    private RadioGroup rgSumasRestasRespuestas;
     private RadioButton rbRespuesta1, rbRespuesta2, rbRespuesta3, rbRespuesta4;
+    private ProgressBar progressBar;
+    private TextView TextProgreso;
     private Button btnContinuar, btnGuardarProgreso;
 
     private int progreso = 0;
@@ -30,102 +31,99 @@ public class AventurasSumres extends AppCompatActivity {
 
         //Inicializando las vistas
         progressBar = findViewById(R.id.progressBar);
-        txtProgreso = findViewById(R.id.TextProgreso);
-        txtPregunta = findViewById(R.id.txtSumasRestasPregunta);
-        rgRespuestas = findViewById(R.id.rgSumasRestasRespuestas);
+        txtSumasRestasPregunta = findViewById(R.id.txtSumasRestasPregunta);
+        rgSumasRestasRespuestas = findViewById(R.id.rgSumasRestasRespuestas);
         rbRespuesta1 = findViewById(R.id.rbRespuesta1);
         rbRespuesta2 = findViewById(R.id.rbRespuesta2);
         rbRespuesta3 = findViewById(R.id.rbRespuesta3);
         rbRespuesta4 = findViewById(R.id.rbRespuesta4);
+        TextProgreso = findViewById(R.id.TextProgreso);
         btnContinuar = findViewById(R.id.btnContinuar);
         btnGuardarProgreso = findViewById(R.id.btnGuardarProgreso);
 
-        generarEjercicio();
+        //Configuración de botón Continuar
+        btnContinuar.setOnClickListener(v -> verificarRespuesta());
 
-        btnContinuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verificarRespuesta();
-            }
-        });
+        //Configuración de botón Guardar Progreso
+        btnGuardarProgreso.setOnClickListener(v -> guardarProgreso());
 
-        btnGuardarProgreso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                guardarProgreso();
-            }
-        });
+        generarPregunta(); //Generar primera pregunta
     }
 
-    private void generarEjercicio() {
-        Random rand = new Random();
-        int num1 = rand.nextInt(10) + 1;
-        int num2 = rand.nextInt(10) + 1;
-        boolean esSuma = rand.nextBoolean();
+    private void generarPregunta() {
+        Random random = new Random();
+        int numero1 = random.nextInt(20) + 1; // Genera un número entre 1 y 20
+        int numero2 = random.nextInt(20) + 1; // Genera otro número entre 1 y 20
+
+        boolean esSuma = random.nextBoolean(); //Determina si es suma o resta
+        int resultado;
 
         if (esSuma) {
-            txtPregunta.setText("¿Cuánto es " + num1 + " + " + num2 + "?");
-            respuestaCorrecta = num1 + num2;
+            resultado = numero1 + numero2;
+            txtSumasRestasPregunta.setText("¿Cuánto es " + numero1 + " + " + numero2 + "?");
         } else {
-            txtPregunta.setText("¿Cuánto es " + num1 + " - " + num2 + "?");
-            respuestaCorrecta = num1 - num2;
+            resultado = numero1 - numero2;
+            txtSumasRestasPregunta.setText("¿Cuánto es " + numero1 + " - " + numero2 + "?");
         }
 
-        int[] opciones = generarOpciones(respuestaCorrecta);
+        respuestaCorrecta = resultado;
+        asignarOpciones(resultado);
+    }
+
+    private void asignarOpciones(int respuestaCorrecta) {
+        Random random = new Random();
+        int posicionCorrecta = random.nextInt(4); //Posición aleatoria para la respuesta correcta
+        int[] opciones = new int[4]; //Asigna las opciones de respuesta a los RadioButtons
+        opciones[posicionCorrecta] = respuestaCorrecta;
+
+        // Genera opciones incorrectas cercanas a la respuesta correcta
+        for (int i = 0; i < 4; i++) {
+            if (i != posicionCorrecta) {
+                int opcion;
+                do {
+                    opcion = respuestaCorrecta + random.nextInt(10) - 5;
+                } while (opcion == respuestaCorrecta || contiene(opciones, opcion));
+                opciones[i] = opcion;
+            }
+        }
+
+        //Asignar opciones a los RadioButtons
         rbRespuesta1.setText(String.valueOf(opciones[0]));
         rbRespuesta2.setText(String.valueOf(opciones[1]));
         rbRespuesta3.setText(String.valueOf(opciones[2]));
         rbRespuesta4.setText(String.valueOf(opciones[3]));
-        rgRespuestas.clearCheck();
+
+        //Limpiar selección previa
+        rgSumasRestasRespuestas.clearCheck();
     }
 
-    private int[] generarOpciones(int correcta) {
-        Random rand = new Random();
-        int[] opciones = new int[4];
-        int posicionCorrecta = rand.nextInt(4);
-        opciones[posicionCorrecta] = correcta;
-
-        for (int i = 0; i < 4; i++) {
-            if (i == posicionCorrecta) continue;
-            int opcion;
-            do {
-                opcion = correcta + rand.nextInt(10) - 5;
-            } while (opcion == correcta || contiene(opciones, opcion));
-            opciones[i] = opcion;
-        }
-        return opciones;
-    }
-
-    private boolean contiene(int[] opciones, int opcion) {
-        for (int op : opciones) {
-            if (op == opcion) return true;
+    private boolean contiene(int[] arr, int value) {
+        for (int i : arr) {
+            if (i == value) return true;
         }
         return false;
     }
 
     private void verificarRespuesta() {
-        int seleccionId = rgRespuestas.getCheckedRadioButtonId();
-        if (seleccionId == -1) {
+        int respuestaSeleccionadaId = rgSumasRestasRespuestas.getCheckedRadioButtonId();
+        if (respuestaSeleccionadaId == -1) {
             Toast.makeText(this, "Selecciona una respuesta", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        RadioButton seleccion = findViewById(seleccionId);
-        int respuestaSeleccionada = Integer.parseInt(seleccion.getText().toString());
+        RadioButton respuestaSeleccionada = findViewById(respuestaSeleccionadaId);
+        int respuestaUsuario = Integer.parseInt(respuestaSeleccionada.getText().toString());
 
-        if (respuestaSeleccionada == respuestaCorrecta) {
+        if (respuestaUsuario == respuestaCorrecta) {
             Toast.makeText(this, "¡Correcto!", Toast.LENGTH_SHORT).show();
-            progreso += 10;  // Aumentar el progreso en 10%
-            actualizarProgreso();
-            generarEjercicio();
+            progreso += 10;
+            progressBar.setProgress(progreso);
+            TextProgreso.setText(progreso + "%");
         } else {
-            Toast.makeText(this, "Incorrecto. Intenta nuevamente.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Incorrecto, intenta nuevamente", Toast.LENGTH_SHORT).show();
         }
-    }
 
-    private void actualizarProgreso() {
-        progressBar.setProgress(progreso);
-        txtProgreso.setText(progreso + "%");
+        generarPregunta();//Genera una nueva pregunta
     }
 
     private void guardarProgreso() {
