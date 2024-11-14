@@ -17,7 +17,7 @@ public class AventurasSumres extends AppCompatActivity {
     private TextView txtSumasRestasPregunta;
     private RadioGroup rgSumasRestasRespuestas;
     private RadioButton rbRespuesta1, rbRespuesta2, rbRespuesta3, rbRespuesta4;
-    private ProgressBar progressBar;
+    private progress progressBar;
     private TextView TextProgreso;
     private Button btnContinuar, btnGuardarProgreso;
 
@@ -117,8 +117,7 @@ public class AventurasSumres extends AppCompatActivity {
         if (respuestaUsuario == respuestaCorrecta) {
             Toast.makeText(this, "¡Correcto!", Toast.LENGTH_SHORT).show();
             progreso += 10;
-            progressBar.setProgress(progreso);
-            TextProgreso.setText(progreso + "%");
+            progressBar.setProgreso(progreso);
         } else {
             Toast.makeText(this, "Incorrecto, intenta nuevamente", Toast.LENGTH_SHORT).show();
         }

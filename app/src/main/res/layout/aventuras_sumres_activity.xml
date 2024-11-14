@@ -8,42 +8,11 @@
     android:id="@+id/sumres_activity"
     android:background="@color/gray">
 
-    <LinearLayout
-        android:id="@+id/upper"
-        android:layout_width="match_parent"
+    <com.aaa.matheando.progress
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingBottom="10dp">
+        android:id="@+id/progressBar"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="493dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:max="100"
-            android:progress="0" />
-
-        <TextView
-            android:id="@+id/TextProgreso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="0%"
-            android:textColor="@android:color/white"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnGuardarProgreso"
-            android:layout_width="106dp"
-            android:layout_height="96dp"
-            android:backgroundTint="@color/greenlime"
-            android:text="Guardar progreso"
-            android:textSize="14dp" />
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
