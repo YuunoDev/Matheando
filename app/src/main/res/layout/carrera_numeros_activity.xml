@@ -23,14 +23,14 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:max="100"
-            android:progress="50" />
+            android:progress="0" />
 
         <TextView
             android:id="@+id/TextProgreso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="50%"
+            android:text="0%"
             android:textColor="@android:color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -57,11 +57,12 @@
             android:id="@+id/txtComparacionPregunta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿Cuál número es mayor?"
+            android:text=""
             android:textSize="24sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Pregunta"/>
 
         <RadioGroup
             android:id="@+id/rgComparacionRespuestas"
@@ -72,13 +73,15 @@
                 android:id="@+id/rbComparacion1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="8"/>
+                android:text=""
+                android:contentDescription="Respuesta 1"/>
 
             <RadioButton
                 android:id="@+id/rbComparacion2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"/>
+                android:text=""
+                android:contentDescription="Respuesta 2"/>
         </RadioGroup>
 
         <Button
