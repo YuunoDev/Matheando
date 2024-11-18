@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Matheando</string>
+    <string name="pregunta_base">Encuentra la respuesta en el globo de: %1$d × %2$d</string>
+    <string name="error_pregunta">Error en la pregunta. Generando una nueva</string>
+    <string name="progreso">%1$d%%</string>
+    <string name="respuesta">Respuesta %1$d</string>
 </resources>
