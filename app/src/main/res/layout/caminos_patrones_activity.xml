@@ -22,11 +22,21 @@
         android:padding="20dp">
 
         <!-- Apartado de actividad -->
+
+        <TextView
+            android:id="@+id/pista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Es de "
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtPatronPregunta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Completa el patrón: 2, 4, 6, __"
+            android:text="Completa el patrón: "
             android:textSize="24sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -36,7 +46,11 @@
             android:id="@+id/etPatronRespuesta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Escribe tu respuesta"/>
+            android:hint="Escribe tu respuesta"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            />
 
         <Button
             android:id="@+id/btnPatronContinuar"
