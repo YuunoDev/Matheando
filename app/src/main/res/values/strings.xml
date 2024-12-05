@@ -4,4 +4,7 @@
     <string name="error_pregunta">Error en la pregunta. Generando una nueva</string>
     <string name="progreso">%1$d%%</string>
     <string name="respuesta">Respuesta %1$d</string>
+    <string name="respuesta_correcta">¡Respuesta correcta!</string>
+    <string name="Questrest">¿Cuál es la respuesta correcta?</string>
+    <string name="Questnote">Mueve tu celular a la izquierda o derecha para responder</string>
 </resources>

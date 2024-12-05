@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     android:id="@+id/rompe_fracc_activity"
     android:background="@color/gray">
 
@@ -23,10 +22,10 @@
         android:padding="20dp">
 
         <com.aaa.matheando.FractionPizzaView
+            android:id="@+id/pizzaView"
             android:layout_width="200sp"
             android:layout_height="200sp"
-            android:id="@+id/pizzaView"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:id="@+id/txtFraccionPregunta"
@@ -47,19 +46,25 @@
                 android:id="@+id/rbFraccion1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1/2"/>
+                android:text="1/2"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
 
             <RadioButton
                 android:id="@+id/rbFraccion2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1/4"/>
+                android:text="1/4"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
 
             <RadioButton
                 android:id="@+id/rbFraccion3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3/4"/>
+                android:text="3/4"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
         </RadioGroup>
 
         <Button
@@ -67,7 +72,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/greenlime"
-            android:text="Continuar"/>
+            android:text="Continuar"
+            android:textSize="20sp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/footer"

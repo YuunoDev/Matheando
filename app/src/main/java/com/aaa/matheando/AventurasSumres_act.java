@@ -1,51 +1,71 @@
 package com.aaa.matheando;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
-public class AventurasSumres extends AppCompatActivity {
-
+public class AventurasSumres_act extends AppCompatActivity {
     private TextView txtSumasRestasPregunta;
     private RadioGroup rgSumasRestasRespuestas;
     private RadioButton rbRespuesta1, rbRespuesta2, rbRespuesta3, rbRespuesta4;
     private progress progressBar;
-    private TextView TextProgreso;
-    private Button btnContinuar, btnGuardarProgreso;
-
+    private Button btnContinuar;
     private int progreso = 0;
+    private int numactividad = 1;
+    private int progressIncrement;
     private int respuestaCorrecta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.aventuras_sumres_activity);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.sumres_activity), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         //Inicializando las vistas
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar3);
         txtSumasRestasPregunta = findViewById(R.id.txtSumasRestasPregunta);
         rgSumasRestasRespuestas = findViewById(R.id.rgSumasRestasRespuestas);
         rbRespuesta1 = findViewById(R.id.rbRespuesta1);
         rbRespuesta2 = findViewById(R.id.rbRespuesta2);
         rbRespuesta3 = findViewById(R.id.rbRespuesta3);
         rbRespuesta4 = findViewById(R.id.rbRespuesta4);
-        TextProgreso = findViewById(R.id.TextProgreso);
         btnContinuar = findViewById(R.id.btnContinuar);
-        btnGuardarProgreso = findViewById(R.id.btnGuardarProgreso);
 
         //Configuración de botón Continuar
         btnContinuar.setOnClickListener(v -> verificarRespuesta());
 
         //Configuración de botón Guardar Progreso
-        btnGuardarProgreso.setOnClickListener(v -> guardarProgreso());
+        //btnGuardarProgreso.setOnClickListener(v -> guardarProgreso());
+
+        //resivir intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            progreso = intent.getIntExtra("progreso", 0);
+            numactividad = intent.getIntExtra("numeroActividades", 1);
+            // Calcular cuánto debe incrementar por cada actividad
+            progressIncrement = 100 / numactividad;
+
+            // Actualizar la barra de progreso
+            progressBar.setProgreso(progreso);
+        }
 
         generarPregunta(); //Generar primera pregunta
     }
@@ -99,7 +119,9 @@ public class AventurasSumres extends AppCompatActivity {
 
     private boolean contiene(int[] arr, int value) {
         for (int i : arr) {
-            if (i == value) return true;
+            if (i == value){
+                return true;
+            }
         }
         return false;
     }
@@ -116,16 +138,31 @@ public class AventurasSumres extends AppCompatActivity {
 
         if (respuestaUsuario == respuestaCorrecta) {
             Toast.makeText(this, "¡Correcto!", Toast.LENGTH_SHORT).show();
-            progreso += 10;
+            //aunmetar el progreso
+            progreso += progressIncrement;
             progressBar.setProgreso(progreso);
+            // Retrasar la finalización para que se vea el Toast
+            new Handler().postDelayed(this::finalizarActividad, 1000);
         } else {
             Toast.makeText(this, "Incorrecto, intenta nuevamente", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(this::finalizarActividad, 1000);
         }
-
-        generarPregunta();//Genera una nueva pregunta
     }
 
     private void guardarProgreso() {
         Toast.makeText(this, "Progreso guardado: " + progreso + "%", Toast.LENGTH_SHORT).show();
+    }
+
+    private void finalizarActividad() {
+
+        // Asegurarse de que no exceda el 100%
+        if (progreso > 100) progreso = 100;
+
+        Intent intent = new Intent(this, Selects.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("progreso", progreso);
+        intent.putExtra("returning", true);
+        startActivity(intent);
+        finish();
     }
 }

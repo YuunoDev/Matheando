@@ -6,14 +6,15 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:gravity="center"
-    android:background="@drawable/fondo2">
+    android:background="@drawable/fondo2"
+    android:id="@+id/main">
 
     <TextView
         android:id="@+id/textSeleccion"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Escoge el grado que cursa de primaria"
+        android:text="Escoge la dificultad o repasa tus conocimientos"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="26sp"
@@ -23,7 +24,7 @@
         android:id="@+id/btnPrimero"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="PRIMERO"
+        android:text="OPERACIONES"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/greenlime"
         android:textSize="18sp"/>
@@ -32,7 +33,7 @@
         android:id="@+id/btnSegundo"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="SEGUNDO"
+        android:text="SIMPLE"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/greenlime"
         android:textSize="18sp"/>
@@ -41,7 +42,7 @@
         android:id="@+id/btnTercero"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="TERCERO"
+        android:text="NORMAL"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/greenlime"
         android:textSize="18sp"/>
@@ -50,7 +51,7 @@
         android:id="@+id/btnCuarto"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="CUARTO"
+        android:text="DIFICIL"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/greenlime"
         android:textSize="18sp"/>
@@ -62,7 +63,9 @@
         android:text="NO DISPONIBLE"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/gray"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:clickable="false"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btnSexto"
@@ -71,5 +74,7 @@
         android:text="NO DISPONIBLE"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/gray"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:clickable="false"
+        android:textColor="@color/white"/>
 </LinearLayout>

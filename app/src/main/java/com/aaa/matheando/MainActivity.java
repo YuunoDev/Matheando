@@ -1,8 +1,14 @@
 package com.aaa.matheando;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -13,83 +19,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    FractionPizzaView pizzaView;
-    int denom;
-    int num;
-    RadioGroup rg;
-    RadioButton r1, r2, r3;
-
+    private ImageButton btnComenzar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.rompe_fracciones_activity);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rompe_fracc_activity), (v, insets) -> {
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        pizzaView = findViewById(R.id.pizzaView);
-        rg = findViewById(R.id.rgFraccionRespuestas);
-        r1 = findViewById(R.id.rbFraccion1);
-        r2 = findViewById(R.id.rbFraccion2);
-        r3 = findViewById(R.id.rbFraccion3);
+        btnComenzar=findViewById(R.id.btnComenzar);
 
-        //selecionar aleatorio la fracción
-        denom = (int) (Math.random() * 10) + 1;
-        num = (int) (Math.random() * denom) + 1;
-
-        pizzaView.setFraction(num, denom); // Establece la fracción inicial
-
-        //poner la respues correcta en el radio button aletoriamente
-        int random = (int) (Math.random() * 3);
-        int dif = (denom - num);
-
-        if (dif < 0) {
-            dif = dif * -1;
-        } else if (dif==num) {
-            dif = dif-1;
-        }
-
-        switch (random) {
-            case 0:
-                r1.setText(num + "/" + denom);
-                r2.setText((dif) + "/" + denom);
-                r3.setText(num + "/" + (dif));
-                break;
-            case 1:
-                r2.setText(num + "/" + denom);
-                r1.setText((dif) + "/" + denom);
-                r3.setText(num + "/" + (dif));
-                break;
-            case 2:
-                r3.setText(num + "/" + denom);
-                r2.setText((dif) + "/" + denom);
-                r1.setText(num + "/" + (dif));
-                break;
-        }
-
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.rbFraccion1) {
-                //mandar su texto
-                checkAnswer(r1.getText().toString());
-            } else if (checkedId == R.id.rbFraccion2) {
-                checkAnswer(r2.getText().toString());
-            } else if (checkedId == R.id.rbFraccion3) {
-                checkAnswer(r3.getText().toString());
-            }
+        btnComenzar.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Selects.class);
+            startActivity(intent);
         });
     }
 
-    private void checkAnswer(String selectedAnswer) {
-        if (selectedAnswer.equals(num + "/" + denom)) {
-            Toast.makeText(this, "Respuesta correcta!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Respuesta incorrecta. La respuesta correcta era " + num + "/" + denom, Toast.LENGTH_SHORT).show();
-        }
-    }
 }

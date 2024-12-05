@@ -35,9 +35,10 @@ public class progress extends LinearLayout {
     }
 
     public void setProgreso(int progreso) {
-        this.progreso = progreso;
+        this.progreso = Math.min(Math.max(progreso, 0), 100);
         progressBar.setProgress(progreso);
         TextProgreso.setText(progreso + "%");
+        invalidate();
     }
 
     public int getProgreso() {

@@ -2,16 +2,41 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_mat"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_mat"
         android:supportsRtl="true"
         android:theme="@style/Theme.Matheando"
         tools:targetApi="31">
+        <activity
+            android:name=".Actfinalizar"
+            android:exported="false" />
+        <activity
+            android:name=".Multitablas"
+            android:exported="false" />
+        <activity
+            android:name=".Sacude_res"
+            android:exported="false" />
+        <activity
+            android:name=".Repaso"
+            android:exported="false" />
+        <activity
+            android:name=".Selects"
+            android:exported="false" />
+        <activity
+            android:name=".AventurasSumres_act"
+            android:exported="false" />
+        <activity
+            android:name=".fraccion"
+            android:exported="false" />
         <activity
             android:name=".ActDFA"
             android:exported="false" />

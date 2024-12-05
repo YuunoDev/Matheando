@@ -27,11 +27,5 @@ android:paddingBottom="5dp">
     android:textSize="30dp"
     android:textStyle="bold" />
 
-<Button
-    android:id="@+id/btnGuardarProgreso"
-    android:layout_width="106dp"
-    android:layout_height="96dp"
-    android:backgroundTint="@color/greenlime"
-    android:text="Guardar progreso"
-    android:textSize="14dp" />
+
 </LinearLayout>

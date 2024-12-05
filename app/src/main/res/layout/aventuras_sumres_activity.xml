@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     android:id="@+id/sumres_activity"
     android:background="@color/gray">
 
     <com.aaa.matheando.progress
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"/>
+        android:id="@+id/progressBar3"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,36 +36,40 @@
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:id="@+id/rbRespuesta1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/black"
                 />
 
             <RadioButton
                 android:id="@+id/rbRespuesta2"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/black"/>
 
             <RadioButton
                 android:id="@+id/rbRespuesta3"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/black"/>
 
             <RadioButton
                 android:id="@+id/rbRespuesta4"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/black"/>
         </RadioGroup>
 
         <Button
@@ -76,7 +79,7 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/greenlime"
             android:text="Continuar"
-            android:textSize="20dp" />
+            android:textSize="25dp" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/footer"
