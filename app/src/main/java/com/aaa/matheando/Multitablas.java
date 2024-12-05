@@ -92,14 +92,14 @@ public class Multitablas extends AppCompatActivity {
 
         btnContinuar.setOnClickListener(view -> {
             if (validarRespuesta(respuesta)) {
-                Toast.makeText(Multitablas.this, "¡Correcto! Seleccionaste el número mayor.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Multitablas.this, "¡Correcto! Seleccionaste el resultado exacto.", Toast.LENGTH_SHORT).show();
                 //aunmetar el progreso
                 progreso += progressIncrement;
                 progressBar.setProgreso(progreso);
                 // Retrasar la finalización para que se vea el Toast
                 new Handler().postDelayed(this::finalizarActividad, 1000);
             }else{
-                Toast.makeText(Multitablas.this, "¡Incorrecto! Seleccionaste el número menor.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Multitablas.this, "¡Incorrecto!.", Toast.LENGTH_SHORT).show();
                 // Puedes decidir si quieres que continúe aunque se equivoque
                 new Handler().postDelayed(this::finalizarActividad, 1000);
             }

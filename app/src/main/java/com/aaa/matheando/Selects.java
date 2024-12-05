@@ -140,7 +140,7 @@ public class Selects extends AppCompatActivity {
         activities.add(Maynum.class);
         activities.add(AventurasSumres_act.class);
         activities.add(fraccion.class);
-        activities.add(patrones.class);
+        activities.add(Patrones_act.class);
         activities.add(Multitablas.class);
         activities.add(Sacude_res.class);
 

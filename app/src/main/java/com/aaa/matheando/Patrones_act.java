@@ -1,6 +1,8 @@
 package com.aaa.matheando;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,14 +14,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class patrones extends AppCompatActivity {
-    TextView txtPatronPregunta,pista;
-    EditText etPatronRespuesta;
-    Button btnPatronContinuar;
+public class Patrones_act extends AppCompatActivity {
+    private TextView txtPatronPregunta,pista;
+    private EditText etPatronRespuesta;
+    private Button btnPatronContinuar;
     //variables para el patron
     private int[] patron;
-    int numer;
-
+    private int numer;
+    private progress progressBar;
+    private int progreso = 0;
+    private int numactividad = 1;
+    private int progressIncrement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,33 +40,62 @@ public class patrones extends AppCompatActivity {
         etPatronRespuesta=findViewById(R.id.etPatronRespuesta);
         btnPatronContinuar=findViewById(R.id.btnPatronContinuar);
         pista=findViewById(R.id.pista);
+        progressBar=findViewById(R.id.progress);
+
+        //resivir intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            progreso = intent.getIntExtra("progreso", 0);
+            numactividad = intent.getIntExtra("numeroActividades", 1);
+            // Calcular cuánto debe incrementar por cada actividad
+            progressIncrement = 100 / numactividad;
+
+            // Actualizar la barra de progreso
+            progressBar.setProgreso(progreso);
+        }
 
         //generar el patron
         generarPatron();
 
         txtPatronPregunta.setText("Completa el patrón: "+patron[0]+","+patron[1]+","+patron[2]+","+patron[3]);
-        Toast.makeText(this, "patrón: "+numer, Toast.LENGTH_SHORT).show();
 
         btnPatronContinuar.setOnClickListener(view -> {
             String respuesta=etPatronRespuesta.getText().toString();
+
             if(respuesta.equals(String.valueOf(numer))){
                 Toast.makeText(this, " Correcto", Toast.LENGTH_SHORT).show();
+                //aunmetar el progreso
+                progreso += progressIncrement;
+                progressBar.setProgreso(progreso);
+                // Retrasar la finalización para que se vea el Toast
+                new Handler().postDelayed(this::finalizarActividad, 1000);
             }else{
                 Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                // Puedes decidir si quieres que continúe aunque se equivoque
+                new Handler().postDelayed(this::finalizarActividad, 1000);
             }
         });
 
+    }
+
+    private void finalizarActividad() {
+
+        // Asegurarse de que no exceda el 100%
+        if (progreso > 100) progreso = 100;
+
+        Intent intent = new Intent(this, Selects.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("progreso", progreso);
+        intent.putExtra("returning", true);
+        startActivity(intent);
+        finish();
     }
 
     private void generarPatron(){
         patron=new int[5];
         int select=(int)(Math.random()*2+1);
 
-        //numer puede ser negativo o positivo
         numer=(int)(Math.random()*6+1);
-        if((int)(Math.random()*2+1)==1){
-            numer=-numer;
-        }
 
         switch (select){
             case 1:
@@ -77,6 +111,7 @@ public class patrones extends AppCompatActivity {
                 patron[1]=patron[0]-numer;
                 patron[2]=patron[1]-numer;
                 patron[3]=patron[2]-numer;
+                numer=-numer;
                 break;
         }
 

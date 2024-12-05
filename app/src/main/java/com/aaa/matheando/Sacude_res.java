@@ -1,6 +1,7 @@
 package com.aaa.matheando;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -36,6 +37,11 @@ public class Sacude_res extends AppCompatActivity implements SensorEventListener
     private boolean isLeftCorrect = false;
     private Random random;
 
+    private progress progressBar;
+    private int progreso = 0;
+    private int numactividad = 1;
+    private int progressIncrement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +62,19 @@ public class Sacude_res extends AppCompatActivity implements SensorEventListener
         operationText = findViewById(R.id.operationText);
         leftAnswerText = findViewById(R.id.leftAnswer);
         rightAnswerText = findViewById(R.id.rightAnswer);
+        progressBar = findViewById(R.id.progressC);
+
+        //resivir intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            progreso = intent.getIntExtra("progreso", 0);
+            numactividad = intent.getIntExtra("numeroActividades", 1);
+            // Calcular cuánto debe incrementar por cada actividad
+            progressIncrement = 100 / numactividad;
+
+            // Actualizar la barra de progreso
+            progressBar.setProgreso(progreso);
+        }
     }
 
     private void initializeSensors() {
@@ -131,9 +150,15 @@ public class Sacude_res extends AppCompatActivity implements SensorEventListener
                 if (selectedLeft == isLeftCorrect) {
                     // ¡Respuesta correcta!
                     Toast.makeText(this, "Respuesta correcta!", Toast.LENGTH_SHORT).show();
+                    //parar sensor y animación
+                    onPause();
+                    // Retrasar la finalización para que se vea el Toast
+                    new Handler().postDelayed(this::finalizarActividad, 1000);
                 } else {
                     // Respuesta incorrecta
                     Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                    // Puedes decidir si quieres que continúe aunque se equivoque
+                    new Handler().postDelayed(this::finalizarActividad, 1000);
                 }
             }
         }
@@ -156,5 +181,21 @@ public class Sacude_res extends AppCompatActivity implements SensorEventListener
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+    }
+
+    private void finalizarActividad() {
+        //aunmetar el progreso
+        progreso += progressIncrement;
+        progressBar.setProgreso(progreso);
+
+        // Asegurarse de que no exceda el 100%
+        if (progreso > 100) progreso = 100;
+
+        Intent intent = new Intent(this, Selects.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("progreso", progreso);
+        intent.putExtra("returning", true);
+        startActivity(intent);
+        finish();
     }
 }

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Matheando"
         tools:targetApi="31">
         <activity
+            android:name=".Patrones_act"
+            android:exported="false" />
+        <activity
             android:name=".Actfinalizar"
             android:exported="false" />
         <activity
